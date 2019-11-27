@@ -2,7 +2,7 @@ apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
 
 def packageName = packageName
-def libraryVersion = version
+def libraryVersion = libVersion
 
 publishing {
     publications {
