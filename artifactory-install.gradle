@@ -1,0 +1,36 @@
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'maven-publish'
+
+def packageName = packageName
+def libraryVersion = version
+
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId packageName
+            version = libraryVersion
+            artifactId project.getName()
+
+            artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+        }
+    }
+}
+
+artifactory {
+    contextUrl = url
+    publish {
+        repository {
+            repoKey = repository
+
+            username = username
+            password = password
+        }
+        defaults {
+            publications('aar')
+            publishArtifacts = true
+
+            properties = ['qa.level': 'basic', 'dev.team': 'core']
+            publishPom = true
+        }
+    }
+}
