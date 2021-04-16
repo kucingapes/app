@@ -3,6 +3,7 @@ apply plugin: 'maven-publish'
 
 def packageName = packageName
 def libraryVersion = libVersion
+def projectName = projectName
 
 publishing {
     publications {
@@ -11,7 +12,7 @@ publishing {
             version = libraryVersion
             artifactId artifactName
 
-            artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+            artifact("$buildDir/outputs/aar/${projectName}-release.aar")
             pom.withXml {
                 def dependencies = asNode().appendNode('dependencies')
                 configurations.getByName("releaseCompileClasspath").getResolvedConfiguration().getFirstLevelModuleDependencies().each {
